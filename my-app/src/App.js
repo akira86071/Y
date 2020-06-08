@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { render } from 'react-dom';
 
 function App() {
+
+  let a = Promise.resolve(getdata());
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,26 +21,37 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-          HIHI test{getdata()}
+          HIHI test
+          {() => getdata()}
         </a>
       </header>
     </div>
   );
 }
 
-function getdata(){
+async function getdata(){
 
   var newheader = new Headers();
+  let callback = [];
 
-  fetch("http://localhost:7001/hihi",{
+  const ans = await fetch("http://localhost:7001/hihi",{
     method: 'GET',
     headers: newheader,
     mode: 'cors',
     cache: 'default'
   }).then(function(response){
-    console.log(response.body);
+    return response.json();
+  }).then(function(result){
+    console.log(result);
+    return result.content.toString();
+  }).then(function(test){
+    console.log(test);
   });
-
+ 
+  return ans;
+  
 }
+
+
 
 export default App;

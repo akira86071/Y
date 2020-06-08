@@ -13,6 +13,7 @@ class HomeController extends Controller {
     this.ctx.body = {
       content:'yeeeeeeee'
     }
+    this.ctx.type = ''
     console.log("hihi");
   }
 
